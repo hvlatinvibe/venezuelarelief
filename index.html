@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Earthquake Relief for Venezuela — Latin Vibe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF2DF;
+    --teal:#1D3B63;
+    --clay:#B0342A;
+    --gold:#E3A526;
+    --ink:#2A2622;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- Language toggle ---------- */
+  body [data-lang]{ display:none; }
+  body.lang-en [data-lang="en"]{ display:block; }
+  body.lang-es [data-lang="es"]{ display:block; }
+  body.lang-en .jump[data-lang="en"],
+  body.lang-es .jump[data-lang="es"]{ display:inline-flex; }
+  body.lang-en .btn-label [data-lang="en"],
+  body.lang-es .btn-label [data-lang="es"]{ display:inline; }
+
+  .langbar{
+    position:sticky;
+    top:0;
+    z-index:20;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 20px;
+    background:var(--cream);
+    border-bottom:1px solid rgba(42,38,34,0.1);
+  }
+  .wordmark{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--teal);
+    font-weight:700;
+  }
+  .langtoggle{
+    display:flex;
+    gap:4px;
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    font-weight:700;
+  }
+  .langtoggle button{
+    background:none;
+    border:1px solid var(--teal);
+    color:var(--teal);
+    padding:5px 10px;
+    border-radius:3px;
+    cursor:pointer;
+    letter-spacing:0.05em;
+  }
+  .langtoggle button.active{
+    background:var(--teal);
+    color:var(--cream);
+  }
+
+  /* ---------- Layout (mobile-first base) ---------- */
+  .wrap{
+    max-width:640px;
+    margin:0 auto;
+    padding:36px 20px 0;
+  }
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--teal);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:18px;
+    height:1px;
+    background:var(--clay);
+    display:inline-block;
+    flex-shrink:0;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(2rem, 9vw, 3.4rem);
+    line-height:1.08;
+    margin:0 0 20px;
+    color:var(--teal);
+  }
+  h1 em{
+    font-style:italic;
+    font-weight:400;
+    color:var(--clay);
+  }
+  p.lede{
+    font-size:1rem;
+    line-height:1.6;
+    color:#4a443d;
+    max-width:54ch;
+    margin:0 0 32px;
+  }
+
+  /* ---------- Donate buttons ---------- */
+  .buttons{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-bottom:20px;
+  }
+  .btn{
+    font-family:'Work Sans', sans-serif;
+    font-weight:600;
+    font-size:1rem;
+    text-decoration:none;
+    padding:18px 20px;
+    border-radius:4px;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    width:100%;
+    min-height:56px;
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .icon{
+    flex-shrink:0;
+  }
+  .btn-label{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:1.05rem;
+  }
+  .btn-label svg{
+    flex-shrink:0;
+  }
+  .btn:focus-visible{
+    outline:2px solid var(--teal);
+    outline-offset:3px;
+  }
+  .btn:active{
+    transform:scale(0.98);
+  }
+  .btn-primary{
+    background:var(--teal);
+    color:var(--cream);
+    box-shadow:0 1px 0 0 var(--ink);
+  }
+  .btn-secondary{
+    background:transparent;
+    color:var(--teal);
+    border:1.5px solid var(--teal);
+  }
+
+  /* ---------- Impact counter ---------- */
+  .impact{
+    background:#fff;
+    border-radius:8px;
+    padding:20px 24px;
+    margin-bottom:8px;
+    text-align:center;
+    border-top:4px solid var(--gold);
+  }
+  .impact-num{
+    display:block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:2.6rem;
+    color:var(--teal);
+    line-height:1;
+    margin-bottom:6px;
+  }
+  .impact-label{
+    font-family:'Work Sans', sans-serif;
+    font-size:0.92rem;
+    color:#4a443d;
+  }
+  .impact-updated{
+    font-family:'Space Mono', monospace;
+    font-size:0.72rem;
+    color:#6b6359;
+    text-align:center;
+    margin:8px 0 28px;
+  }
+
+  .jump{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.05em;
+    color:var(--clay);
+    text-decoration:none;
+    margin-bottom:40px;
+  }
+
+  /* ---------- Mail/check section ---------- */
+  .mail{
+    border-top:1px solid rgba(42,38,34,0.15);
+    padding:32px 24px;
+    margin:8px 0 40px;
+    max-width:none;
+    background:#fff;
+    border-radius:8px;
+    border-left:5px solid var(--clay);
+    box-shadow:0 2px 10px rgba(42,38,34,0.06);
+  }
+  .mail h2{
+    font-family:'Space Mono', monospace;
+    font-size:13px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--clay);
+    margin:0 0 16px;
+    font-weight:700;
+  }
+  .mail address{
+    font-style:normal;
+    font-family:'Fraunces', serif;
+    font-size:1.6rem;
+    font-weight:600;
+    line-height:1.4;
+    color:var(--teal);
+  }
+  .mail p{
+    font-size:0.98rem;
+    color:#4a443d;
+    margin:16px 0 0;
+    line-height:1.55;
+  }
+
+  /* ---------- Who you're helping ---------- */
+  .helping{
+    background:var(--teal);
+    padding:48px 20px 56px;
+  }
+  .helping-inner{
+    max-width:640px;
+    margin:0 auto;
+  }
+  .helping h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(1.7rem, 6vw, 2.3rem);
+    color:var(--cream);
+    margin:0 0 14px;
+  }
+  .helping-intro{
+    color:#CFDAE8;
+    font-size:0.98rem;
+    line-height:1.6;
+    max-width:52ch;
+    margin:0 0 32px;
+  }
+  .cards{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .card{
+    background:var(--cream);
+    border-radius:6px;
+    padding:22px;
+    border-top:4px solid var(--gold);
+  }
+  .card-icon{
+    margin-bottom:14px;
+  }
+  .card h3{
+    font-family:'Work Sans', sans-serif;
+    font-weight:600;
+    font-size:1.05rem;
+    color:var(--teal);
+    margin:0 0 8px;
+  }
+  .card p{
+    font-size:0.92rem;
+    line-height:1.55;
+    color:#4a443d;
+    margin:0;
+  }
+  .source-note{
+    color:#B9C6DA;
+    font-size:0.78rem;
+    line-height:1.5;
+    margin-top:28px;
+    max-width:none;
+  }
+
+  .coast{
+    width:100%;
+    height:70px;
+    display:block;
+  }
+  footer{
+    text-align:center;
+    padding:20px;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.06em;
+    color:#6b6359;
+    font-weight:700;
+  }
+
+  /* ---------- Larger screens ---------- */
+  @media (min-width:600px){
+    .wrap{padding:56px 24px 0;}
+    p.lede{font-size:1.08rem;}
+    .buttons{flex-direction:row;}
+    .btn{width:auto; flex:1;}
+    .helping{padding:64px 24px 72px;}
+    .cards{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+    }
+  }
+</style>
+</head>
+<body class="lang-en">
+
+<div class="langbar">
+  <span class="wordmark">Latin Vibe</span>
+  <div class="langtoggle">
+    <button type="button" id="btn-en" class="active" onclick="setLang('en')">EN</button>
+    <button type="button" id="btn-es" onclick="setLang('es')">ES</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <p class="eyebrow" data-lang="en">Latin Vibe · 501(c)(3) · Emergency Response</p>
+  <p class="eyebrow" data-lang="es">Latin Vibe · Organización 501(c)(3) · Respuesta de Emergencia</p>
+
+  <h1 data-lang="en">Earthquake relief<br><em>for Venezuela.</em></h1>
+  <h1 data-lang="es">Ayuda de emergencia<br><em>para Venezuela.</em></h1>
+
+  <p class="lede" data-lang="en">
+    On June 24, two devastating earthquakes struck Venezuela's coast, leveling homes and buildings
+    across La Guaira, Caracas, and surrounding areas, and leaving thousands of families searching for safety,
+    shelter, and loved ones. For many of us in this community, these are not strangers because they are
+    our own families. Latin Vibe is raising emergency funds to respond directly to this crisis.
+    Every dollar goes toward what's needed most right now: medicine, food, clean water, gasoline,
+    and transportation to reach loved ones and deliver aid where it's needed. We are moving as
+    quickly as we can, because right now, every hour matters.
+  </p>
+  <p class="lede" data-lang="es">
+    El 24 de junio, dos terremotos devastadores golpearon la costa de Venezuela, derribando casas
+    y edificios en La Guaira, Caracas y los alrededores, y dejando a miles de familias buscando seguridad,
+    refugio y a sus seres queridos. Ellos no son extraños, porque son nuestras propias familias. 
+    Latin Vibe está recaudando fondos de emergencia para responder directamente
+    a esta crisis. Cada dólar se destina a lo que se necesita con más urgencia en este momento:
+    medicinas, alimentos, agua potable, gasolina y transporte para llegar a familiares, amigos y vecinos y
+    entregar ayuda donde se necesita. Estamos actuando lo más rápido posible, porque en este
+    momento, cada hora cuenta.
+  </p>
+
+  <div class="buttons">
+    <a class="btn btn-primary" href="https://www.paypal.com/donate/?hosted_button_id=6KTEAUKHFEBQ2" target="_blank" rel="noopener" aria-label="Donate via PayPal">
+      <svg class="icon" viewBox="0 0 24 24" width="30" height="30" aria-hidden="true">
+        <path fill="#FAF3E8" d="M8.5 4.5h6.2c2.6 0 4.4 1.5 3.9 4.1-.6 3.2-2.8 4.7-5.8 4.7h-2.1c-.4 0-.7.3-.8.7l-.9 4.6c0 .2-.2.4-.5.4H6.3c-.3 0-.5-.3-.4-.6L8 5c.1-.3.3-.5.5-.5z" opacity="0.55"/>
+        <path fill="#FAF3E8" d="M6.7 6.5h6.2c2.6 0 4.4 1.5 3.9 4.1-.6 3.2-2.8 4.7-5.8 4.7h-2.1c-.4 0-.7.3-.8.7l-.9 4.6c0 .2-.2.4-.5.4H4.5c-.3 0-.5-.3-.4-.6l2.1-13c.1-.3.3-.5.5-.5z"/>
+      </svg>
+      <span class="btn-label">
+        <span data-lang="en">DONATE HERE</span>
+        <span data-lang="es">DONA AQUÍ</span>
+        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+          <path stroke="currentColor" d="M1 8h12.2M8.5 3.3 13.2 8l-4.7 4.7" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </a>
+  </div>
+
+  <div class="impact">
+    <span class="impact-num">86</span>
+    <span class="impact-label" data-lang="en">people helped so far</span>
+    <span class="impact-label" data-lang="es">personas ayudadas hasta ahora</span>
+  </div>
+  <p class="impact-updated" data-lang="en">Last updated July 2, 2026</p>
+  <p class="impact-updated" data-lang="es">Última actualización: 2 de julio de 2026</p>
+
+  <div class="mail">
+    <h2 data-lang="en">Prefer check or cash?</h2>
+    <h2 data-lang="es">¿Prefiere donar con cheque o efectivo?</h2>
+    <address>
+      Latin Vibe<br>
+      129 S Fraser St<br>
+      State College, PA 16801
+    </address>
+    <p data-lang="en">Please make checks payable to "Latin Vibe." Latin Vibe is a registered 501(c)(3) nonprofit; donations may be tax-deductible.</p>
+    <p data-lang="es">Por favor, haga los cheques a nombre de "Latin Vibe". Latin Vibe es una organización 501(c)(3) registrada; las donaciones pueden ser deducibles de impuestos.</p>
+    <p data-lang="en">Questions? Email hvlatinvibe at gmail dot com</p>
+    <p data-lang="es">¿Preguntas? Escribe a hvlatinvibe at gmail dot com</p>
+  </div>
+
+
+<a class="jump" href="#helping" data-lang="en">Who you're helping ↓</a>
+<a class="jump" href="#helping" data-lang="es">A quién estás ayudando ↓</a>
+
+</div>
+  
+<section class="helping" id="helping">
+  <div class="helping-inner">
+    <h2 data-lang="en">Who you're helping</h2>
+    <h2 data-lang="es">A quién estás ayudando</h2>
+
+    <p class="helping-intro" data-lang="en">
+      Your gift goes directly toward urgent, on-the-ground needs in the hardest-hit
+      areas — La Guaira and Caracas — where hospitals, homes, and roads
+      were badly damaged.
+    </p>
+    <p class="helping-intro" data-lang="es">
+      Tu donación se destina directamente a las necesidades urgentes sobre el terreno
+      en las zonas más afectadas — La Guaira y Caracas — donde hospitales,
+      viviendas y carreteras sufrieron daños graves.
+    </p>
+
+    <div class="cards">
+      <div class="card">
+        <h3 data-lang="en">Medicine &amp; medical care</h3>
+        <h3 data-lang="es">Medicinas y atención médica</h3>
+        <p data-lang="en">Dozens of hospitals across the region were damaged or knocked out of service, and the ones still standing are stretched far past capacity. Funds go toward emergency medicine, wound care, and basic medical supplies for clinics and volunteers that are still treating patients.</p>
+        <p data-lang="es">Decenas de hospitales en la región quedaron dañados o fuera de servicio, y los que siguen en pie están al límite de su capacidad. Los fondos se destinan a medicinas de emergencia, cuidado de heridas y suministros médicos básicos para las clínicas y voluntarios que todavía atienden pacientes.</p>
+      </div>
+
+      <div class="card">
+        <h3 data-lang="en">Food &amp; water, including special dietary needs</h3>
+        <h3 data-lang="es">Alimentos y agua, incluyendo necesidades dietéticas especiales</h3>
+        <p data-lang="en">Displaced families need meals and clean, safe water — including gluten-free options for children with celiac disease or other dietary restrictions who can't safely eat what's typically available in crowded shelters.</p>
+        <p data-lang="es">Las familias desplazadas necesitan comidas y agua limpia y segura — incluyendo opciones sin gluten para niños con celiaquía u otras restricciones alimentarias que no pueden comer con seguridad lo que suele haber disponible en los refugios abarrotados.</p>
+      </div>
+
+      <div class="card">
+        <h3 data-lang="en">Gasoline &amp; transportation</h3>
+        <h3 data-lang="es">Gasolina y transporte</h3>
+        <p data-lang="en">Fuel is scarce and many roads remain damaged. Funds help move food, medicine, and people between towns where pharmacies and markets are still open and the communities that were hit hardest.</p>
+        <p data-lang="es">El combustible escasea y muchas carreteras siguen dañadas. Los fondos ayudan a mover alimentos, medicinas y personas entre los pueblos donde todavía funcionan farmacias y mercados, y las comunidades más devastadas.</p>
+      </div>
+
+      <div class="card">
+        <h3 data-lang="en">Supplies for rescue workers</h3>
+        <h3 data-lang="es">Suministros para los equipos de rescate</h3>
+        <p data-lang="en">Search-and-rescue teams and local volunteers — many working around the clock through unstable rubble and repeated aftershocks — need basic gear, hydration, and supplies to keep going.</p>
+        <p data-lang="es">Los equipos de búsqueda y rescate y los voluntarios locales — muchos trabajando día y noche entre escombros inestables y réplicas constantes — necesitan equipo básico, hidratación y suministros para continuar.</p>
+      </div>
+    </div>
+
+    <p class="source-note" data-lang="en">
+      Context above reflects ongoing relief reporting from international aid organizations
+      and news coverage of the June 24 earthquakes. On-the-ground needs are evolving day to day.
+    </p>
+    <p class="source-note" data-lang="es">
+      El contexto anterior refleja los reportes de organizaciones internacionales de ayuda
+      y la cobertura informativa de los terremotos del 24 de junio. Las necesidades sobre
+      el terreno cambian día a día.
+    </p>
+  </div>
+</section>
+
+<svg class="coast" viewBox="0 0 640 70" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path d="M0,18 C 90,6 160,28 260,15 C 350,4 420,26 520,12 C 580,5 610,15 640,10 L640,70 L0,70 Z" fill="#1D3B63" opacity="1"/>
+  <path d="M0,35 C 100,20 190,42 290,28 C 380,15 460,40 560,25 C 595,18 618,26 640,22 L640,70 L0,70 Z" fill="#E3A526" opacity="1"/>
+  <path d="M0,52 C 110,38 200,58 300,44 C 400,30 480,55 580,40 C 610,34 625,40 640,36 L640,70 L0,70 Z" fill="#B0342A" opacity="1"/>
+</svg>
+
+<footer>
+  STATE COLLEGE, PA · LATIN VIBE<br>
+  <span data-lang="en">Questions? Contact us: hvlatinvibe at gmail dot com</span>
+  <span data-lang="es">¿Preguntas? Contáctanos: hvlatinvibe at gmail dot com</span>
+</footer>
+
+<script>
+  function setLang(lang){
+    document.body.classList.remove('lang-en','lang-es');
+    document.body.classList.add('lang-' + lang);
+    document.getElementById('htmlRoot').setAttribute('lang', lang);
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+  }
+</script>
+
+</body>
+</html>

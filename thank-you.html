@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You — Latin Vibe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF2DF;
+    --teal:#1D3B63;
+    --clay:#B0342A;
+    --gold:#E3A526;
+    --ink:#2A2622;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .card{
+    text-align:center;
+    padding:48px 32px;
+    max-width:440px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(2.2rem, 8vw, 3rem);
+    line-height:1.15;
+    margin:0 0 8px;
+    color:var(--teal);
+  }
+  h1 em{
+    font-style:italic;
+    font-weight:400;
+    color:var(--clay);
+  }
+  p{
+    font-size:1rem;
+    line-height:1.6;
+    color:#4a443d;
+    margin:0 0 28px;
+  }
+  .wordmark{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--teal);
+    font-weight:700;
+  }
+  .bar{
+    width:60px;
+    height:4px;
+    background:var(--gold);
+    margin:0 auto 24px;
+    border-radius:2px;
+  }
+  a.back{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    color:var(--teal);
+    text-decoration:none;
+    border-bottom:2px solid var(--gold);
+    padding-bottom:2px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="bar"></div>
+  <h1>Thank you!<br><em>¡Gracias!</em></h1>
+  <p>
+    Your support means the world to families in Venezuela right now.<br>
+    Tu apoyo significa muchísimo para las familias en Venezuela en este momento.
+  </p>
+  <span class="wordmark">Latin Vibe</span>
+  <br><br>
+  <a class="back" href="https://hvlatinvibe.github.io/venezuelarelief/">← Back to main page / Volver a página principal</a>
+</div>
+
+</body>
+</html>
