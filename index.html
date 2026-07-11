@@ -309,6 +309,58 @@
     max-width:none;
   }
 
+  .events-section{
+    max-width:640px;
+    margin:0 auto;
+    padding:48px 20px 8px;
+  }
+  .events-section h2{
+    font-family:'Space Mono', monospace;
+    font-size:13px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--clay);
+    margin:0 0 6px;
+    font-weight:700;
+  }
+  .event-row{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    padding:14px 0;
+    border-bottom:1px solid rgba(42,38,34,0.12);
+  }
+  .event-row:last-child{
+    border-bottom:none;
+  }
+  .event-badge{
+    font-family:'Space Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.05em;
+    padding:3px 8px;
+    border-radius:3px;
+    white-space:nowrap;
+    margin-top:2px;
+    color:var(--cream);
+  }
+  .event-badge.upcoming{
+    background:var(--teal);
+  }
+  .event-badge.past{
+    background:#6b6359;
+  }
+  .event-name{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.05rem;
+    color:var(--teal);
+    display:block;
+  }
+  .event-loc{
+    font-size:0.88rem;
+    color:#4a443d;
+  }
+
   .coast{
     width:100%;
     height:70px;
@@ -418,6 +470,8 @@
 
 <a class="jump" href="#helping" data-lang="en">Who you're helping ↓</a>
 <a class="jump" href="#helping" data-lang="es">A quién estás ayudando ↓</a>
+<a class="jump" href="#events" data-lang="en">See our events ↓</a>
+<a class="jump" href="#events" data-lang="es">Ver nuestros eventos ↓</a>
 
 </div>
   
@@ -478,6 +532,59 @@
     </p>
   </div>
 </section>
+
+<section class="events-section" id="events">
+  <h2 data-lang="en">Upcoming Events</h2>
+  <h2 data-lang="es">Próximos Eventos</h2>
+
+  <div class="event-row">
+    <span class="event-badge upcoming">JUL 12</span>
+    <div>
+      <span class="event-name" data-lang="en">Fundraising Concert</span>
+      <span class="event-name" data-lang="es">Concierto Benéfico</span>
+      <span class="event-loc">Webster's Bookstore Cafe</span>
+    </div>
+  </div>
+
+  <div class="event-row">
+    <span class="event-badge upcoming">AUG 1</span>
+    <div>
+      <span class="event-name" data-lang="en">Poetry &amp; Music</span>
+      <span class="event-name" data-lang="es">Poesía y Música</span>
+      <span class="event-loc">The Print Factory</span>
+    </div>
+  </div>
+
+  <div class="event-row">
+    <span class="event-badge upcoming">AUG 30</span>
+    <div>
+      <span class="event-name" data-lang="en">Photographs &amp; Art</span>
+      <span class="event-name" data-lang="es">Fotografías y Arte</span>
+      <span class="event-loc">3DotsDowntown</span>
+    </div>
+  </div>
+
+  <h2 data-lang="en" style="margin-top:24px;">Past Events</h2>
+  <h2 data-lang="es" style="margin-top:24px;">Eventos Pasados</h2>
+
+  <div class="event-row">
+    <span class="event-badge past">JUL 7</span>
+    <div>
+      <span class="event-name" data-lang="en">Fundraising Concert</span>
+      <span class="event-name" data-lang="es">Concierto Benéfico</span>
+      <span class="event-loc">BoalCity Brewing</span>
+    </div>
+  </div>
+
+  <div class="event-row">
+    <span class="event-badge past">JUL 3</span>
+    <div>
+      <span class="event-name" data-lang="en">Fundraising Concert</span>
+      <span class="event-name" data-lang="es">Concierto Benéfico</span>
+      <span class="event-loc">Manny's Performance Space</span>
+    </div>
+  </div>
+</section>  
 
 <svg class="coast" viewBox="0 0 640 70" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <path d="M0,18 C 90,6 160,28 260,15 C 350,4 420,26 520,12 C 580,5 610,15 640,10 L640,70 L0,70 Z" fill="#1D3B63" opacity="1"/>
